@@ -5,7 +5,18 @@ Fully Connected Deep Network for MNIST dataset
 
 How to run
 ---
-TBA
+1. Download datasets to `data/` directory:
+    ```bash
+    cd data/
+    wget http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz
+    wget http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz
+    wget http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz
+    wget http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz
+    ```
+2. Unpack datasets in `data/` directory:
+    ```bash
+    gunzip *
+    ``` 
 
 Results
 ---
