@@ -2,7 +2,8 @@ from typing import Optional
 
 import numpy as np
 
-from simple_framework.layer import Layer
+from simple_framework.layers.layer import Layer
+from simple_framework.optimizers.optimizer import Optimizer
 
 
 class DenseLayer(Layer):
@@ -23,14 +24,14 @@ class DenseLayer(Layer):
         :return: array of shape (batch_size, output_shape)
         """
 
-        if not self.weights:
+        if not self.input_shape:
             self.input_shape: int = tensor.shape[1]
 
-            self.weights = np.random.randn(self.input_shape, self.output_shape)
+            self.weights = np.random.randn(self.input_shape, self.output_shape) * 0.001
 
         assert tensor.shape[1] == self.weights.shape[0]
 
         return np.dot(tensor, self.weights)
 
-    def backward(self, tensor: np.ndarray) -> np.ndarray:
+    def backward(self, tensor: np.ndarray, optimizer: Optimizer) -> np.ndarray:
         raise NotImplementedError

@@ -2,7 +2,8 @@ from typing import List
 
 import numpy as np
 
-from simple_framework.layer import Layer
+from simple_framework.layers.layer import Layer
+from simple_framework.optimizers.optimizer import Optimizer
 
 
 class SequentialLayer(Layer):
@@ -18,5 +19,8 @@ class SequentialLayer(Layer):
 
         return tensor
 
-    def backward(self, tensor: np.ndarray) -> np.ndarray:
-        raise NotImplementedError
+    def backward(self, tensor: np.ndarray, optimizer: Optimizer) -> np.ndarray:
+        for layer in reversed(self.layers):
+            tensor = layer.backward(tensor, optimizer)
+
+        return tensor
