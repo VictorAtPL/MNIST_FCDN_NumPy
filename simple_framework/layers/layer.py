@@ -1,18 +1,27 @@
-from abc import ABC
-from typing import Optional
+from abc import ABC, abstractmethod
+from typing import Optional, Dict, List
 
 import numpy as np
-
-from simple_framework.optimizers.optimizer import Optimizer
 
 
 class Layer(ABC):
 
-    forward_cache: Optional[np.ndarray] = None
+    cache: Dict[str, Optional[np.ndarray]]
 
-    def forward(self, tensor: np.ndarray) -> np.ndarray:
-        self.forward_cache = tensor
-        return tensor
+    global_cache: Dict[str, List[np.ndarray]] = {
+        "weights": []
+    }
 
-    def backward(self, tensor: np.ndarray, optimizer: Optimizer) -> np.ndarray:
+    def do_cache(self, input_tensor: np.ndarray, output_tensor: np.ndarray) -> None:
+        self.cache: Dict[str, Optional[np.ndarray]] = {
+            "input_tensor": input_tensor,
+            "output_tensor": output_tensor
+        }
+
+    @abstractmethod
+    def forward(self, input_tensor: np.ndarray) -> np.ndarray:
+        raise NotImplementedError
+
+    @abstractmethod
+    def backward(self, next_layer_derivative: np.ndarray) -> np.ndarray:
         raise NotImplementedError

@@ -11,16 +11,14 @@ class SequentialLayer(Layer):
     def __init__(self, layers: List[Layer]) -> None:
         self.layers: List[Layer] = layers
 
-        super().__init__()
-
-    def forward(self, tensor: np.ndarray) -> np.ndarray:
+    def forward(self, input_tensor: np.ndarray) -> np.ndarray:
         for layer in self.layers:
-            tensor = layer.forward(tensor)
+            input_tensor = layer.forward(input_tensor)
 
-        return tensor
+        return input_tensor
 
-    def backward(self, tensor: np.ndarray, optimizer: Optimizer) -> np.ndarray:
+    def backward(self, next_layer_derivative: np.ndarray) -> np.ndarray:
         for layer in reversed(self.layers):
-            tensor = layer.backward(tensor, optimizer)
+            next_layer_derivative = layer.backward(next_layer_derivative)
 
-        return tensor
+        return next_layer_derivative

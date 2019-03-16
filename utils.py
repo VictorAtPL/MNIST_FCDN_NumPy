@@ -5,7 +5,7 @@ from consts import APP_NAME
 
 def setup_logger():
     logger = get_logger()
-    logger.setLevel(logging.DEBUG)
+    logger.setLevel(logging.INFO)
 
     ch = logging.StreamHandler()
     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')

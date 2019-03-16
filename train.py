@@ -12,8 +12,8 @@ def train(args) -> None:
     dataset = Dataset(args.data_dir)
 
     logger.debug("Creating model object")
-    model = Model(32, dataset)
-    model.train()
+    model = Model(args.batch_size, dataset, args.weight_decay_lambda, args.learning_rate)
+    model.train(args.epochs, with_validation=args.train_with_validation)
 
 
 def main() -> None:
@@ -22,6 +22,12 @@ def main() -> None:
     parser = argparse.ArgumentParser()
 
     parser.add_argument("--data_dir", default="data/")
+    parser.add_argument("--epochs", default=50, type=int)
+    parser.add_argument("--batch_size", default=128, type=int)
+    parser.add_argument("--weight_decay_lambda", default=0.1, type=float)
+    parser.add_argument("--learning_rate", default=0.01, type=float)
+    parser.add_argument("--train_with_validation", default=True, type=bool)
+
     args = parser.parse_args()
 
     train(args)
