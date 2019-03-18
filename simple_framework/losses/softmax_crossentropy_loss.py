@@ -35,7 +35,7 @@ class SoftmaxCrossEntropyLoss(Loss):
 
         all_weights = self.global_cache['weights']
         weights_norm = np.sum([np.sum(np.dot(tensor, np.transpose(tensor))) for tensor in all_weights])
-        self.logger.debug("weights_norm %f", weights_norm)
+        self.logger.debug("L2 of all weights matrix %f", weights_norm)
 
         return -1. / batch_size * np.sum(golden_one_hot * np.log(stable_output_cache)) \
                + self.lmbda / (2 * batch_size) * weights_norm
