@@ -3,7 +3,6 @@ from typing import List
 import numpy as np
 
 from simple_framework.layers.layer import Layer
-from simple_framework.optimizers.optimizer import Optimizer
 
 
 class SequentialLayer(Layer):
@@ -11,9 +10,9 @@ class SequentialLayer(Layer):
     def __init__(self, layers: List[Layer]) -> None:
         self.layers: List[Layer] = layers
 
-    def forward(self, input_tensor: np.ndarray) -> np.ndarray:
+    def forward(self, input_tensor: np.ndarray, is_training: bool = True) -> np.ndarray:
         for layer in self.layers:
-            input_tensor = layer.forward(input_tensor)
+            input_tensor = layer.forward(input_tensor, is_training)
 
         return input_tensor
 

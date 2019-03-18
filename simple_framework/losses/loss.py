@@ -7,7 +7,7 @@ from simple_framework.layers.layer import Layer
 
 class Loss(Layer):
     @abstractmethod
-    def forward(self, input_tensor: np.ndarray) -> np.ndarray:
+    def forward(self, input_tensor: np.ndarray, is_training: bool = True) -> np.ndarray:
         raise NotImplementedError
 
     @abstractmethod

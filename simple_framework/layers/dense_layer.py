@@ -34,12 +34,7 @@ class DenseLayer(Layer):
         self.lmbda = lmbda
         self.optimizer = optimizer
 
-    def forward(self, input_tensor: np.ndarray) -> np.ndarray:
-        """
-
-        :param input_tensor: array of shape (batch_size, input_shape)
-        :return: array of shape (batch_size, output_shape)
-        """
+    def forward(self, input_tensor: np.ndarray, is_training: bool = True) -> np.ndarray:
         self.logger.debug("%s.%s", self.__class__.__name__, "forward")
 
         if not self.input_number:

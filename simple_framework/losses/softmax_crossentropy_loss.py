@@ -13,7 +13,7 @@ class SoftmaxCrossEntropyLoss(Loss):
     def __init__(self, lmbda: float) -> None:
         self.lmbda = lmbda
 
-    def forward(self, input_tensor: np.ndarray) -> np.ndarray:
+    def forward(self, input_tensor: np.ndarray, is_training: bool = True) -> np.ndarray:
         self.logger.debug("%s.%s", self.__class__.__name__, "forward")
 
         # - np.max gives numerical stability

@@ -1,4 +1,4 @@
-from typing import Optional, Tuple
+from typing import Tuple
 
 import numpy as np
 
@@ -6,12 +6,13 @@ from dataset import Dataset
 from dataset_type import DatasetType
 from plot_drawer import PlotDrawer
 from simple_framework.layers.dense_layer import DenseLayer
+from simple_framework.layers.dropout_layer import DropoutLayer
 from simple_framework.layers.layer import Layer
 from simple_framework.layers.relu_layer import ReluLayer
-from simple_framework.layers.sequential import SequentialLayer
-from simple_framework.layers.standardization_layer import StandardizationLayer
-from simple_framework.losses.softmax_crossentropy_loss import SoftmaxCrossEntropyLoss
+from simple_framework.layers.rescale_layer import RescaleLayer
+from simple_framework.layers.sequential_layer import SequentialLayer
 from simple_framework.losses.loss import Loss
+from simple_framework.losses.softmax_crossentropy_loss import SoftmaxCrossEntropyLoss
 from simple_framework.optimizers.adam_optimizer import AdamOptimizer
 from simple_framework.optimizers.optimizer import Optimizer
 from simple_framework.utils import convert_to_one_hot
@@ -33,15 +34,13 @@ class Model:
         self.optimizer: Optimizer = AdamOptimizer(learning_rate=learning_rate)
 
         self.architecture: Layer = SequentialLayer([
-            StandardizationLayer(np.float32(127), np.float32(255)),
-            DenseLayer(256, weight_decay_lambda, optimizer=self.optimizer),
+            RescaleLayer(np.float32(128), np.float32(128)),
+            DenseLayer(800, weight_decay_lambda, optimizer=self.optimizer),
             ReluLayer(),
-            DenseLayer(128, weight_decay_lambda, optimizer=self.optimizer),
+            DropoutLayer(keep_probability=0.8),
+            DenseLayer(800, weight_decay_lambda, optimizer=self.optimizer),
             ReluLayer(),
-            DenseLayer(64, weight_decay_lambda, optimizer=self.optimizer),
-            ReluLayer(),
-            DenseLayer(32, weight_decay_lambda, optimizer=self.optimizer),
-            ReluLayer(),
+            DropoutLayer(keep_probability=0.8),
             DenseLayer(10, weight_decay_lambda, optimizer=self.optimizer),
             self.loss
         ])
@@ -99,7 +98,7 @@ class Model:
         epoch_all_examples = 0
         for features, golden_labels in self.dataset.get_batch(DatasetType.VALIDATION):
 
-            probabilities = self.architecture.forward(features)
+            probabilities = self.architecture.forward(features, is_training=False)
 
             predictions = np.argmax(probabilities, axis=1)
             golden_classes = np.squeeze(golden_labels, axis=1)
