@@ -1,6 +1,6 @@
 from typing import Optional
 
-import numpy as np
+import cupy as np
 
 from simple_framework.layers.layer import Layer
 from simple_framework.optimizers.optimizer import Optimizer
@@ -42,7 +42,7 @@ class DenseLayer(Layer):
 
             self.weights = np.random.randn(self.input_number, self.output_number) * 0.01
             self.global_cache['weights'].append(self.weights)
-            self.bias = np.zeros([1, self.output_number])
+            self.bias = np.zeros((1, self.output_number))
 
         assert input_tensor.shape[1] == self.weights.shape[0]
 

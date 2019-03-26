@@ -1,6 +1,6 @@
 from typing import List
 
-import numpy as np
+import cupy as np
 
 from simple_framework.layers.layer import Layer
 

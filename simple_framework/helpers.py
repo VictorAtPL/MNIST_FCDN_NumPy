@@ -1,6 +1,6 @@
 from typing import Optional
 
-import numpy as np
+import cupy as np
 
 
 def convert_to_one_hot(tensor: np.ndarray, class_number: Optional[int] = None):

@@ -1,4 +1,4 @@
-import numpy as np
+import cupy as np
 
 from simple_framework.losses.loss import Loss
 from utils import get_logger
@@ -34,7 +34,7 @@ class SoftmaxCrossEntropyLoss(Loss):
         stable_output_cache = np.max(self.cache['output_tensor'], np.int32(1e-15))
 
         all_weights = self.global_cache['weights']
-        weights_norm = np.sum([np.sum(np.dot(tensor, np.transpose(tensor))) for tensor in all_weights])
+        weights_norm = sum([np.sum(np.dot(tensor, np.transpose(tensor))) for tensor in all_weights])
         self.logger.debug("L2 of all weights matrix %f", weights_norm)
 
         return -1. / batch_size * np.sum(golden_one_hot * np.log(stable_output_cache)) \

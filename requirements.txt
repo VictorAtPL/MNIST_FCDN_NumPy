@@ -1,2 +1,4 @@
 matplotlib
 numpy
+cupy-cuda80
+scikit-learn
