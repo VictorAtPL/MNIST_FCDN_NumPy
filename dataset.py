@@ -2,7 +2,7 @@ import os
 import struct
 from typing import Generator, List, Dict, Tuple
 
-import cupy as np
+import numpy as np
 
 from dataset_type import DatasetType
 from utils import get_logger

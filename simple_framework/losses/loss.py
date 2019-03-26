@@ -1,6 +1,6 @@
 from abc import abstractmethod
 
-import cupy as np
+import numpy as np
 
 from simple_framework.layers.layer import Layer
 

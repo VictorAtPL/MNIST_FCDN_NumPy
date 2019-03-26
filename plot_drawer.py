@@ -1,7 +1,7 @@
 from typing import List, Tuple, Any, Dict
 
 import cupy
-import cupy as np
+import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.axes import Axes
 from matplotlib.figure import Figure

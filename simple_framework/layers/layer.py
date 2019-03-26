@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Optional, Dict, List
 
-import cupy as np
+import numpy as np
 
 
 class Layer(ABC):

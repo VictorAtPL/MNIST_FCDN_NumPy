@@ -1,7 +1,7 @@
 import time
 from typing import Tuple, List, Dict, Any
 
-import cupy as np
+import numpy as np
 
 from dataset import Dataset
 from dataset_type import DatasetType

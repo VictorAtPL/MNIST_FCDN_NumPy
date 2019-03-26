@@ -1,4 +1,4 @@
-import cupy as np
+import numpy as np
 
 from simple_framework.losses.loss import Loss
 from utils import get_logger

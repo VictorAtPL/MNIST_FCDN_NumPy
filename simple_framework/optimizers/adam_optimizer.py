@@ -1,6 +1,6 @@
 from typing import Dict
 
-import cupy as np
+import numpy as np
 
 from simple_framework.layers.layer import Layer
 from simple_framework.optimizers.optimizer import Optimizer
